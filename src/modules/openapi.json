@@ -1,0 +1,107 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MCP Server API",
+    "version": "1.2.0",
+    "description": "API documentation for the MCP server. With newly added features and updated endpoints."
+  },
+  "paths": {
+    "/sse": {
+      "get": {
+        "summary": "Establish an SSE connection",
+        "responses": {
+          "200": {
+            "description": "SSE connection established",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages": {
+      "post": {
+        "summary": "Handle messages",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "query",
+            "required": true,
+            "description": "Session ID for the transport",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message handled successfully"
+          },
+          "400": {
+            "description": "No transport found for sessionId"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/capture-data": {
+      "post": {
+        "summary": "Example endpoint for capturing data",
+        "responses": {
+          "200": {
+            "description": "Data captured successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/new-endpoint": {
+      "get": {
+        "summary": "Example of a new endpoint",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Data not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ]
+}
